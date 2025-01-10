@@ -1,87 +1,139 @@
+//
 #include <Arduino.h>
-int LG1 = 23;
-int LG2 = 19;
-int LG3 = 18;
-int LG4 = 5;
-int LG5 = 17;
-int LG6 = 16;
-int LG7 = 4;
-int LG8 = 0;
-int potPin = 36;
-void setup(){
-    pinMode (LG1,OUTPUT);
-    pinMode (LG2,OUTPUT);
-    pinMode (LG3,OUTPUT);
-    pinMode (LG4,OUTPUT);
-    pinMode (LG5,OUTPUT);
-    pinMode (LG6,OUTPUT);
-    pinMode (LG7,OUTPUT);
-    pinMode (LG8,OUTPUT);
+#define VOLUME_P1 36
+#define VOLUME_P2 39
+
+
+#define LED1_P1 23
+#define LED2_P1 19
+#define LED3_P1 18
+#define LED4_P1 5
+
+#define LED1_P2 17
+#define LED2_P2 16
+#define LED3_P2 4
+#define LED4_P2 0
+
+void setup() {
+ 
+  pinMode(LED1_P1, OUTPUT);
+  pinMode(LED2_P1, OUTPUT);
+  pinMode(LED3_P1, OUTPUT);
+  pinMode(LED4_P1, OUTPUT);
+
+  pinMode(LED1_P2, OUTPUT);
+  pinMode(LED2_P2, OUTPUT);
+  pinMode(LED3_P2, OUTPUT);
+  pinMode(LED4_P2, OUTPUT);
+
+
+  digitalWrite(LED1_P1, LOW);
+  digitalWrite(LED2_P1, LOW);
+  digitalWrite(LED3_P1, LOW);
+  digitalWrite(LED4_P1, LOW);
+
+  digitalWrite(LED1_P2, LOW);
+  digitalWrite(LED2_P2, LOW);
+  digitalWrite(LED3_P2, LOW);
+  digitalWrite(LED4_P2, LOW);
+
+  
+  pinMode(VOLUME_P1, INPUT);
+  pinMode(VOLUME_P2, INPUT);
 }
+
 void loop() {
-    int potValue = analogRead(potPin); 
-    int range = map(potValue, 0, 4095, 0, 4000); 
+  
+  int volumeP1 = analogRead(VOLUME_P1);
+  int volumeP2 = analogRead(VOLUME_P2);
 
-    digitalWrite(LG1, LOW);
-    digitalWrite(LG2, LOW);
-    digitalWrite(LG3, LOW);
-    digitalWrite(LG4, LOW);
-    digitalWrite(LG5, LOW);
-    digitalWrite(LG6, LOW);
-    digitalWrite(LG7, LOW);
-    digitalWrite(LG8, LOW);
 
-    if (range >= 0 && range < 500) {
-        digitalWrite(LG1, HIGH);
+  if (volumeP1 > 4000 && volumeP2 > 4000) {
+    
+    for (int i = 0; i < 5; i++) { 
+      
+      digitalWrite(LED1_P1, HIGH);
+      digitalWrite(LED2_P1, LOW);
+      digitalWrite(LED3_P1, HIGH);
+      digitalWrite(LED4_P1, LOW);
+
+      digitalWrite(LED1_P2, HIGH);
+      digitalWrite(LED2_P2, LOW);
+      digitalWrite(LED3_P2, HIGH);
+      digitalWrite(LED4_P2, LOW);
+
+      delay(500); 
+
+    
+      digitalWrite(LED1_P1, LOW);
+      digitalWrite(LED2_P1, HIGH);
+      digitalWrite(LED3_P1, LOW);
+      digitalWrite(LED4_P1, HIGH);
+
+      digitalWrite(LED1_P2, LOW);
+      digitalWrite(LED2_P2, HIGH);
+      digitalWrite(LED3_P2, LOW);
+      digitalWrite(LED4_P2, HIGH);
+
+      delay(500); 
     }
-    else if (range >= 500 && range < 1000) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
+  } else {
+    
+    if (volumeP2 > 3600) {
+      digitalWrite(LED1_P1, HIGH);
+      digitalWrite(LED2_P1, HIGH);
+      digitalWrite(LED3_P1, HIGH);
+      digitalWrite(LED4_P1, HIGH);
+    } else if (volumeP2 > 2800) {
+      digitalWrite(LED1_P1, HIGH);
+      digitalWrite(LED2_P1, HIGH);
+      digitalWrite(LED3_P1, HIGH);
+      digitalWrite(LED4_P1, LOW);
+    } else if (volumeP2 > 1600) {
+      digitalWrite(LED1_P1, HIGH);
+      digitalWrite(LED2_P1, HIGH);
+      digitalWrite(LED3_P1, LOW);
+      digitalWrite(LED4_P1, LOW);
+    } else if (volumeP2 > 600) {
+      digitalWrite(LED1_P1, HIGH);
+      digitalWrite(LED2_P1, LOW);
+      digitalWrite(LED3_P1, LOW);
+      digitalWrite(LED4_P1, LOW);
+    } else {
+      digitalWrite(LED1_P1, LOW);
+      digitalWrite(LED2_P1, LOW);
+      digitalWrite(LED3_P1, LOW);
+      digitalWrite(LED4_P1, LOW);
     }
-    else if (range >= 1000 && range < 1500) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
+
+    
+    if (volumeP1 > 3600) {
+      digitalWrite(LED1_P2, HIGH);
+      digitalWrite(LED2_P2, HIGH);
+      digitalWrite(LED3_P2, HIGH);
+      digitalWrite(LED4_P2, HIGH);
+    } else if (volumeP1 > 2800) {
+      digitalWrite(LED1_P2, HIGH);
+      digitalWrite(LED2_P2, HIGH);
+      digitalWrite(LED3_P2, HIGH);
+      digitalWrite(LED4_P2, LOW);
+    } else if (volumeP1 > 1600) {
+      digitalWrite(LED1_P2, HIGH);
+      digitalWrite(LED2_P2, HIGH);
+      digitalWrite(LED3_P2, LOW);
+      digitalWrite(LED4_P2, LOW);
+    } else if (volumeP1 > 600) {
+      digitalWrite(LED1_P2, HIGH);
+      digitalWrite(LED2_P2, LOW);
+      digitalWrite(LED3_P2, LOW);
+      digitalWrite(LED4_P2, LOW);
+    } else {
+      digitalWrite(LED1_P2, LOW);
+      digitalWrite(LED2_P2, LOW);
+      digitalWrite(LED3_P2, LOW);
+      digitalWrite(LED4_P2, LOW);
     }
-    else if (range >= 1500 && range < 2000) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
-        digitalWrite(LG4, HIGH);
-    }
-    else if (range >= 2000 && range < 2500) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
-        digitalWrite(LG4, HIGH);
-        digitalWrite(LG5, HIGH);
-    }
-    else if (range >= 2500 && range < 3000) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
-        digitalWrite(LG4, HIGH);
-        digitalWrite(LG5, HIGH);
-        digitalWrite(LG6, HIGH);
-    }
-    else if (range >= 3000 && range < 3500) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
-        digitalWrite(LG4, HIGH);
-        digitalWrite(LG5, HIGH);
-        digitalWrite(LG6, HIGH);
-        digitalWrite(LG7, HIGH);
-    }
-    else if (range >= 3500 && range <= 4000) {
-        digitalWrite(LG1, HIGH);
-        digitalWrite(LG2, HIGH);
-        digitalWrite(LG3, HIGH);
-        digitalWrite(LG4, HIGH);
-        digitalWrite(LG5, HIGH);
-        digitalWrite(LG6, HIGH);
-        digitalWrite(LG7, HIGH);
-        digitalWrite(LG8, HIGH);
-    }
-    delay(10); 
+  }
+
+  delay(100); 
 }
